@@ -1,0 +1,38 @@
+#!/bin/bash
+
+if ! rbenv version ; then
+  brew update
+  brew install rbenv
+  brew install ruby-build
+
+  rbenv install 1.9.3-p547
+  rbenv rehash
+  echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+  echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+fi
+
+brew install vim
+
+mkdir -p ~/.vim
+cp .vimrc ~
+
+if ! ls theme ; then
+  git clone https://github.com/chriskempson/tomorrow-theme.git theme
+  cp -rf theme/vim/colors ~/.vim/colors
+fi
+
+mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+if ! ls ~/.vim/bundle/emmet-vim ; then
+  git clone https://github.com/mattn/emmet-vim.git ~/.vim/bundle/emmet-vim
+fi
+
+
+if ! ls ~/.vim/bundle/nerdtree ; then
+  git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
+fi
+
+if ! ls ~/.vim/bundle/command-t ; then
+  git clone https://github.com/wincent/Command-T.git ~/.vim/bundle/command-t
+fi
